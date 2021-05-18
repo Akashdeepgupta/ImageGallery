@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<style>
+    .navbar-inner li {
+        line-height: 40px;
+        letter-spacing: 2px;
+    }
+
+    .nav-link {
+        border-top: 4px solid white;
+        transition: border-top .3s;
+        margin-top: -8px !important;
+        padding-top: 16px;
+        cursor: pointer;
+        color: rgb(0, 0, 0) !important;
+    }
+
+    .nav-link:hover {
+        border-top: 4px solid dodgerblue;
+    }
+
+    .navbar-brand {
+        letter-spacing: 4px !important;
+        border-top: 4px solid rgb(255, 255, 255);
+        transition: border-top .3s;
+    }
+
+    .navbar-brand>a:hover {
+        text-decoration: none;
+        color: initial;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 20px;
+        align-items: stretch;
+        justify-items: center;
+    }
+
+    .grid img {
+        border: 1px solid #ccc;
+        box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+        max-width: 100%;
+    }
+
+    .imagewrap {
+        display: inline-block;
+        position: relative;
+    }
+
+    .button1 {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        color: cornflowerblue;
+    }
+</style>
+<header>
+    <nav class="navbar navbar-fixed navbar-inner header" style="padding: 0px 16px">
+        <div class="navbar-brand" style="color: rgb(0, 61, 122);display: table;">
+            <i class="fa fa-Siddhesh fa-3x" style="color: rgb(3, 12, 22);"></i>
+            <a style="display: table-cell; vertical-align: middle; padding-left: 15px;">Image Gallery</a>
+        </div>
+
+        <ul class="nav pull-right">
+            <li>
+                <a class="nav-link" href="upload">Upload more</a>
+            </li>
+            <li>
+                <a class="nav-link" href="grp_uploader">Image Extraction</a>
+            </li>
+
+            <li>
+                <a class="nav-link" href="pdfconverter">Image to PDF</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<hr { display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden;
+    border-style: inset; border-width: 1px;}>
+<div class="grid">
+    {% for image_name in image_names2 %}
+    <div class="imagewrap">
+        <img src="{{url_for('send_image', filename=image_name)}}">
+        <!--images on first page-->
+        <form action="{{url_for('del_image', filename=image_name)}}" method=post>
+            <input type=hidden value="DELETE" name="_method" />
+            <input type="submit" class="button1" value="Delete" />
+        </form>
+    </div>
+    {% endfor %}
+</div>

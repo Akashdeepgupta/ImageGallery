@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>pdf Converter</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <h2>Upload images to convert them to PDF</h2>
+    <hr { display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow:
+        hidden; border-style: inset; border-width: 1px;}>
+
+    <form id="pdfconvert-form" action="{{ url_for('pdfconverter') }}" method="POST" enctype="multipart/form-data">
+
+        <strong><i>Select images:</i></strong><br>
+        <input id="file-picker" type="file" name="file" accept="image/*" multiple>
+        <div id="msg"></div>
+        <input type="submit" value="Convert!" id="pdfconvert-button">
+    </form>
+</body>
+<script>
+
+    $("#file-picker").change(function () {
+
+        var input = document.getElementById('file-picker');
+
+        for (var i = 0; i < input.files.length; i++) {
+            //koala.jpg, koala.JPG substring(index) lastIndexOf('a') koala.1.jpg
+            var ext = input.files[i].name.substring(input.files[i].name.lastIndexOf('.') + 1).toLowerCase()
+
+            if ((ext == 'jpg') || (ext == 'png')) {
+                $("#msg").text("Files are supported")
+            }
+            else {
+                $("#msg").text("Files are NOT supported")
+                document.getElementById("file-picker").value = "";
+            }
+
+        }
+
+
+    });
+
+</script>
+
+</html>
